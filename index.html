@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive non-preemptive SJF CPU scheduling simulator">
+  <title>SJF CPU Scheduling Simulator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <p class="eyebrow">CPU Scheduling Algorithm Simulator</p>
+      <h1>Shortest Job First</h1>
+      <p class="subtitle">Non-Preemptive Scheduling</p>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="card intro-card" aria-labelledby="about-title">
+      <div>
+        <p class="section-label">How it works</p>
+        <h2 id="about-title">Run the shortest available process first</h2>
+      </div>
+      <p>
+        At every scheduling decision, SJF selects the arrived process with the
+        shortest burst time. Once a process starts, it runs until completion.
+      </p>
+    </section>
+
+    <section class="card" aria-labelledby="input-title">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">Step 1</p>
+          <h2 id="input-title">Enter process information</h2>
+        </div>
+        <div class="process-count-control">
+          <label for="processCount">Number of processes</label>
+          <div class="inline-control">
+            <input id="processCount" type="number" min="1" max="20" value="4">
+            <button id="generateButton" class="button button-secondary" type="button">Generate</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="inputError" class="alert" role="alert" hidden></div>
+
+      <div class="table-wrapper">
+        <table class="data-table input-table">
+          <thead>
+            <tr>
+              <th scope="col">Process ID</th>
+              <th scope="col">Arrival Time</th>
+              <th scope="col">Burst Time</th>
+            </tr>
+          </thead>
+          <tbody id="processInputBody"></tbody>
+        </table>
+      </div>
+
+      <div class="actions">
+        <button id="sampleButton" class="button button-ghost" type="button">Load sample data</button>
+        <button id="analyzeButton" class="button button-primary" type="button">Analyze Schedule</button>
+      </div>
+    </section>
+
+    <section id="resultsSection" class="results-stack" aria-live="polite" hidden>
+      <section class="card" aria-labelledby="results-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-label">Step 2</p>
+            <h2 id="results-title">Process results</h2>
+          </div>
+          <span class="status-chip">Analysis complete</span>
+        </div>
+
+        <div class="table-wrapper">
+          <table class="data-table results-table">
+            <thead>
+              <tr>
+                <th scope="col">Process</th>
+                <th scope="col">Arrival</th>
+                <th scope="col">Burst</th>
+                <th scope="col">Start</th>
+                <th scope="col">Completion</th>
+                <th scope="col">Waiting</th>
+                <th scope="col">Turnaround</th>
+              </tr>
+            </thead>
+            <tbody id="resultsBody"></tbody>
+          </table>
+        </div>
+
+        <div class="summary-grid">
+          <article class="summary-card">
+            <span>Average Waiting Time</span>
+            <strong id="averageWaiting">0.00</strong>
+            <small>time units</small>
+          </article>
+          <article class="summary-card">
+            <span>Average Turnaround Time</span>
+            <strong id="averageTurnaround">0.00</strong>
+            <small>time units</small>
+          </article>
+          <article class="summary-card">
+            <span>CPU Completion Time</span>
+            <strong id="completionTime">0</strong>
+            <small>time units</small>
+          </article>
+        </div>
+      </section>
+
+      <section class="card" aria-labelledby="gantt-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="section-label">Step 3</p>
+            <h2 id="gantt-title">Interactive Gantt chart</h2>
+          </div>
+          <p class="hover-hint">Hover over a block to inspect the ready queue</p>
+        </div>
+
+        <div id="ganttChart" class="gantt-chart" aria-label="CPU execution timeline"></div>
+        <div id="timeAxis" class="time-axis" aria-hidden="true"></div>
+
+        <div id="queuePanel" class="queue-panel">
+          <div>
+            <span class="queue-label">Time</span>
+            <strong id="hoverTime">-</strong>
+          </div>
+          <div>
+            <span class="queue-label">CPU</span>
+            <strong id="hoverCpu">Hover over the chart</strong>
+          </div>
+          <div>
+            <span class="queue-label">Ready Queue</span>
+            <strong id="hoverQueue">-</strong>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    SJF CPU Scheduling Algorithm Simulator &middot; Non-Preemptive
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
